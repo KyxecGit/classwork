@@ -1,6 +1,8 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QListWidget, QLineEdit, QTextEdit, QInputDialog, QHBoxLayout, QVBoxLayout, QFormLayout
 
+import json
+
 app = QApplication([])
 
 
@@ -70,17 +72,24 @@ notes_win.setLayout(layout_notes)
 
 '''Функционал приложения'''
 '''Работа с текстом заметки'''
-
-
+def show_note():
+    name = list_notes.selectedItems()[0].text()
+    field_text.setText(notes[name]['текст'])
+    list_tags.clear()
+    list_tags.addItems(notes[name]['теги'])
+    
 '''Работа с тегами заметки'''
+
 '''Запуск приложения'''
 #подключение обработки событий
-
+list_notes.itemClicked.connect(show_note)
 
 #запуск приложения 
 notes_win.show()
 
+with open('notes.json','r',encoding='UTF-8') as file:
+    notes = json.load(file)
 
+list_notes.addItems(notes)
 
-
-app.exec_()
+app.exec()
