@@ -1,10 +1,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QListWidget, QLineEdit, QTextEdit, QInputDialog, QHBoxLayout, QVBoxLayout, QFormLayout
 
-
-import json
-
-
 app = QApplication([])
 
 
@@ -74,54 +70,17 @@ notes_win.setLayout(layout_notes)
 
 '''Функционал приложения'''
 '''Работа с текстом заметки'''
-def show_note():
-    key = list_notes.selectedItems()[0].text()
-    field_text.setText(notes[key]['текст'])
-    list_tags.clear()
-    list_tags.addItems(notes[key]['теги'])
 
-def add_note():
-    note_name, ok = QInputDialog.getText(notes_win,'Добавить заметку','Название заметки')
-    if ok and note_name != '':
-       notes[note_name] = {'текст':'','теги':[]}
-       list_notes.addItem(note_name)
-       list_tags.addItems(notes[note_name]['теги'])
-
-def save_note():
-    if list_notes.selectedItems():
-        key = list_notes.selectedItems()[0].text()
-        notes[key]['текст'] = field_text.toPlainText()
-        with open('notes_data.json','w') as file:
-            json.dump(notes,file)
-
-def del_note():
-    if list_notes.selectedItems():
-        key = list_notes.selectedItems()[0].text()
-        del notes[key]
-        list_notes.clear()
-        list_tags.clear()
-        field_text.clear()
-        with open('notes_data.json','w') as file:
-            json.dump(notes,file)
-        list_notes.addItems(notes)
 
 '''Работа с тегами заметки'''
 '''Запуск приложения'''
 #подключение обработки событий
-list_notes.itemClicked.connect(show_note)
-button_note_create.clicked.connect(add_note)
-button_note_save.clicked.connect(save_note)
-button_note_del.clicked.connect(del_note)
 
 
 #запуск приложения 
 notes_win.show()
 
 
-with open("notes_data.json", "r", encoding='UTF-8') as file:
-    notes = json.load(file)
-
-list_notes.addItems(notes)
 
 
 app.exec_()
