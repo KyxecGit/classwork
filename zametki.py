@@ -77,12 +77,25 @@ def show_note():
     field_text.setText(notes[name]['текст'])
     list_tags.clear()
     list_tags.addItems(notes[name]['теги'])
-    
+
+def add_note():
+    name, ok = QInputDialog.getText(notes_win, 'Добавить','Название')
+    if ok and name != '':
+        notes[name] = {'текст': '','теги':[]}
+        list_notes.addItem(name)
+        list_tags.addItems(notes[name]['теги'])
+
+def save_note():
+    pass
+
+
 '''Работа с тегами заметки'''
 
 '''Запуск приложения'''
 #подключение обработки событий
 list_notes.itemClicked.connect(show_note)
+button_note_create.clicked.connect(add_note)
+button_note_save.clicked.connect(save_note)
 
 #запуск приложения 
 notes_win.show()
