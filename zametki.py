@@ -86,8 +86,11 @@ def add_note():
         list_tags.addItems(notes[name]['теги'])
 
 def save_note():
-    pass
-
+    if list_notes.selectedItems():
+        name = list_notes.selectedItems()[0].text()
+        notes[name]['текст'] = field_text.toPlainText()
+        with open('notes.json', 'w') as file:
+            json.dump(notes,file)
 
 '''Работа с тегами заметки'''
 
