@@ -98,7 +98,7 @@ def save_note():
         key = list_notes.selectedItems()[0].text()
         notes[key]["текст"] = field_text.toPlainText()
         with open("notes_data.json", "w") as file:
-            json.dump(notes, file, sort_keys=True, ensure_ascii=False)
+            json.dump(notes, file)
 
 
 def del_note():
@@ -110,11 +110,13 @@ def del_note():
         field_text.clear()
         list_notes.addItems(notes)
         with open("notes_data.json", "w") as file:
-            json.dump(notes, file, sort_keys=True, ensure_ascii=False)
+            json.dump(notes, file)
         list_notes.addItems(notes)
 
 
 '''Работа с тегами заметки'''
+
+
 
 '''Запуск приложения'''
 #подключение обработки событий
@@ -130,8 +132,7 @@ button_note_del.clicked.connect(del_note)
 #запуск приложения 
 notes_win.show()
 
-
-with open("notes_data.json", "r") as file:
+with open("notes_data.json", "r", encoding='UTF-8') as file:
     notes = json.load(file)
 list_notes.addItems(notes)
 
