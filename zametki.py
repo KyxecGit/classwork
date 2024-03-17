@@ -1,7 +1,9 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QListWidget, QLineEdit, QTextEdit, QInputDialog, QHBoxLayout, QVBoxLayout, QFormLayout
 
+
 import json
+
 
 app = QApplication([])
 
@@ -71,41 +73,67 @@ notes_win.setLayout(layout_notes)
 
 
 '''Функционал приложения'''
-'''Работа с текстом заметки'''
-def show_note():
-    name = list_notes.selectedItems()[0].text()
-    field_text.setText(notes[name]['текст'])
-    list_tags.clear()
-    list_tags.addItems(notes[name]['теги'])
 
+
+'''Работа с текстом заметки'''
 def add_note():
-    name, ok = QInputDialog.getText(notes_win, 'Добавить','Название')
-    if ok and name != '':
-        notes[name] = {'текст': '','теги':[]}
-        list_notes.addItem(name)
-        list_tags.addItems(notes[name]['теги'])
+    note_name, ok = QInputDialog.getText(notes_win, "Добавить заметку", "Название заметки: ")
+    if ok and note_name != "":
+        notes[note_name] = {"текст" : "", "теги" : []}
+        list_notes.addItem(note_name)
+        list_tags.addItems(notes[note_name]["теги"])
+        
+
+
+def show_note():
+    #получаем текст из заметки с выделенным названием и отображаем его в поле редактирования
+    key = list_notes.selectedItems()[0].text()
+    field_text.setText(notes[key]["текст"])
+    list_tags.clear()
+    list_tags.addItems(notes[key]["теги"])
+
 
 def save_note():
     if list_notes.selectedItems():
-        name = list_notes.selectedItems()[0].text()
-        notes[name]['текст'] = field_text.toPlainText()
-        with open('notes.json', 'w') as file:
-            json.dump(notes,file)
+        key = list_notes.selectedItems()[0].text()
+        notes[key]["текст"] = field_text.toPlainText()
+        with open("notes_data.json", "w") as file:
+            json.dump(notes, file, sort_keys=True, ensure_ascii=False)
+
+
+def del_note():
+    if list_notes.selectedItems():
+        key = list_notes.selectedItems()[0].text()
+        del notes[key]
+        list_notes.clear()
+        list_tags.clear()
+        field_text.clear()
+        list_notes.addItems(notes)
+        with open("notes_data.json", "w") as file:
+            json.dump(notes, file, sort_keys=True, ensure_ascii=False)
+        list_notes.addItems(notes)
+
 
 '''Работа с тегами заметки'''
 
 '''Запуск приложения'''
 #подключение обработки событий
-list_notes.itemClicked.connect(show_note)
 button_note_create.clicked.connect(add_note)
+list_notes.itemClicked.connect(show_note)
 button_note_save.clicked.connect(save_note)
+button_note_del.clicked.connect(del_note)
+#button_tag_add.clicked.connect(add_tag)
+#button_tag_del.clicked.connect(del_tag)
+#button_tag_search.clicked.connect(search_tag)
+
 
 #запуск приложения 
 notes_win.show()
 
-with open('notes.json','r',encoding='UTF-8') as file:
-    notes = json.load(file)
 
+with open("notes_data.json", "r") as file:
+    notes = json.load(file)
 list_notes.addItems(notes)
 
-app.exec()
+
+app.exec_()
