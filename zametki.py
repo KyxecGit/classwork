@@ -113,13 +113,24 @@ def del_note():
 
 '''Работа с тегами заметки'''
 
+def add_tag():
+    if list_notes.selectedItems():
+        key = list_notes.selectedItems()[0].text()
+        tag = field_tag.text()
+        if not tag in notes[key]['теги']:
+            notes[key]['теги'].append(tag)
+            list_tags.addItem(tag)
+            field_tag.clear()
+        with open('notes_data.json', 'w') as file:
+            json.dump(notes,file)
+        
 '''Запуск приложения'''
 #подключение обработки событий
 button_note_create.clicked.connect(add_note)
 list_notes.itemClicked.connect(show_note)
 button_note_save.clicked.connect(save_note)
 button_note_del.clicked.connect(del_note)
-#button_tag_add.clicked.connect(add_tag)
+button_tag_add.clicked.connect(add_tag)
 #button_tag_del.clicked.connect(del_tag)
 #button_tag_search.clicked.connect(search_tag)
 
