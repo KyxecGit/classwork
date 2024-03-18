@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import (
-    QApplication,QWidget, QPushButton, QLabel,
+    QApplication,QWidget, QLabel,
     QMessageBox,QRadioButton, QVBoxLayout, QHBoxLayout)
 from PyQt5.QtCore import Qt
 
@@ -30,6 +30,21 @@ main.addLayout(h1)
 main.addLayout(h2)
 
 win.setLayout(main)
+
+def you_lose():
+    result = QMessageBox()
+    result.setText('Поздравляем вы дебил')
+    result.exec()
+
+def you_win():
+    result = QMessageBox()
+    result.setText('Поздравляем вы не дебил')
+    result.exec()
+
+answer1.clicked.connect(you_lose)
+answer2.clicked.connect(you_lose)
+answer3.clicked.connect(you_lose)
+answer4.clicked.connect(you_win)
 
 win.show()
 app.exec()
