@@ -136,6 +136,25 @@ def del_tag():
         with open('notes_data.json','w') as file:
             json.dump(notes, file)
 
+def search_tag():
+    tag = field_tag.text()
+    if button_tag_search.text() == 'Искать заметки по тегу' and tag:
+        notes_filtred = {}
+        for key in notes:
+            if tag in notes[key]['теги']:
+                notes_filtred[key] = notes[key]
+        button_tag_search.setText('Сбросить поиск')
+        list_notes.clear()
+        list_tags.clear()
+        list_notes.addItems(notes_filtred)
+    elif button_tag_search.text() == 'Сбросить поиск':
+        field_tag.clear()
+        list_notes.clear()
+        list_tags.clear()
+        list_notes.addItems(notes)
+        button_tag_search.setText('Искать заметки по тегу')
+
+        
 '''Запуск приложения'''
 #подключение обработки событий
 button_note_create.clicked.connect(add_note)
@@ -144,7 +163,7 @@ button_note_save.clicked.connect(save_note)
 button_note_del.clicked.connect(del_note)
 button_tag_add.clicked.connect(add_tag)
 button_tag_del.clicked.connect(del_tag)
-#button_tag_search.clicked.connect(search_tag)
+button_tag_search.clicked.connect(search_tag)
 
 
 #запуск приложения 
