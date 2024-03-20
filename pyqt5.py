@@ -5,10 +5,19 @@ from PyQt5.QtWidgets import (
     QGroupBox, QLabel,
     QRadioButton, QPushButton)
 
-#Интерфейс
 app = QApplication([])
-win = QWidget()
 
+win = QWidget()
+win.setWindowTitle('Викторина')
+
+# Интерфейс
+question = QLabel('Ты кто по жизни?')
+button = QPushButton('Ответить')
+# Размещение
+main_layout = QVBoxLayout()
+main_layout.addWidget(question, alignment = Qt.AlignHCenter)
+main_layout.addWidget(button)
+win.setLayout(main_layout)
 # Запуск
 win.show()
 app.exec()
