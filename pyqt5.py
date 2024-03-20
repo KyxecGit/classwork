@@ -19,7 +19,11 @@ rbnt1 = QRadioButton('Чел')
 rbnt2 = QRadioButton('Пес')
 rbnt3 = QRadioButton('Гитлер')
 rbnt4 = QRadioButton('Анимешник')
-#Размещение внутри группы с ответами
+# Интерфейс окна с результатом
+results = QGroupBox('Результат')
+result = QLabel('Правильно')
+right_answer = QLabel('Гитлер')
+# Размещение внутри группы с ответами
 h = QHBoxLayout()
 v1 = QVBoxLayout()
 v2 = QVBoxLayout()
@@ -30,10 +34,16 @@ v2.addWidget(rbnt4)
 h.addLayout(v1)
 h.addLayout(v2)
 answers.setLayout(h)
+# Размещение внутри группы с результатом
+v = QVBoxLayout()
+v.addWidget(result)
+v.addWidget(right_answer, alignment = Qt.AlignHCenter)
+results.setLayout(v)
 # Размещение
 main_layout = QVBoxLayout()
 main_layout.addWidget(question, alignment = Qt.AlignHCenter)
 main_layout.addWidget(answers)
+main_layout.addWidget(results)
 main_layout.addWidget(button)
 win.setLayout(main_layout)
 # Запуск
