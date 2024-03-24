@@ -19,6 +19,46 @@
         <a href="">Товар</a>
     </div>
 
+    <div class="products">
+
+        <div class="product">
+            <h2>Название товара</h2>
+            <img src="https://m.media-amazon.com/images/I/61i0-JvZU1L.jpg" width="400px">
+            <a href="">Купить</a>
+        </div>
+
+        <div class="product">
+            <h2>Название товара</h2>
+            <img src="https://m.media-amazon.com/images/I/61i0-JvZU1L.jpg" width="400px">
+            <a href="">Купить</a>
+        </div>
+
+        <div class="product">
+            <h2>Название товара</h2>
+            <img src="https://m.media-amazon.com/images/I/61i0-JvZU1L.jpg" width="400px">
+            <a href="">Купить</a>
+        </div>
+
+        <div class="product">
+            <h2>Название товара</h2>
+            <img src="https://m.media-amazon.com/images/I/61i0-JvZU1L.jpg" width="400px">
+            <a href="">Купить</a>
+        </div>
+
+        <div class="product">
+            <h2>Название товара</h2>
+            <img src="https://m.media-amazon.com/images/I/61i0-JvZU1L.jpg" width="400px">
+            <a href="">Купить</a>
+        </div>
+
+        <div class="product">
+            <h2>Название товара</h2>
+            <img src="https://m.media-amazon.com/images/I/61i0-JvZU1L.jpg" width="400px">
+            <a href="">Купить</a>
+        </div>
+
+    </div>
+
 </body>
 </html>
 
@@ -55,18 +95,39 @@ body {
 }
 
 .nav {
+    background-color: black;
     display: flex;
     justify-content: space-around;
     align-items: center;
     height: 100px;
-    border-bottom: 10px solid black;
+    border-top: 5px solid white;
 }
 
 .nav a {
     text-decoration: none;
-    background-color: black;
     border-radius: 15px;
     color: yellow;
     font-size: 30px;
     padding: 5px;
+}
+
+.products {
+    display: flex;
+    width: 1500px;
+    flex-wrap: wrap;
+    margin: 0 auto 0 auto;
+}
+
+.product {
+    width: 400px;
+    text-align: center;
+    padding: 30px;
+}
+
+.product a {
+    text-decoration: none;
+    color: black;
+    font-size: 30px;
+    background-color: yellow;
+    padding: 10px;
 }
