@@ -1,7 +1,9 @@
+import os
 from PyQt5.QtWidgets import (
     QApplication, QWidget,
     QLabel,QPushButton,QListWidget,
-    QHBoxLayout, QVBoxLayout)
+    QHBoxLayout, QVBoxLayout,
+    QFileDialog)
 
 # Интерфейс
 app = QApplication([])
@@ -40,6 +42,24 @@ v2.addLayout(h1)
 main_layout.addLayout(v1)
 main_layout.addLayout(v2)
 win.setLayout(main_layout)
+
+# Функционал
+
+def ShowImages():
+    workdir = QFileDialog().getExistingDirectory()
+    all_files = os.listdir(workdir)
+
+    image_files = []
+    for filename in all_files:
+        for extensions in ['.jpg','.png','jpeg']:
+            if filename.endswith(extensions):
+                image_files.append(filename)
+
+    files.clear()
+    files.addItems(image_files)
+
+# Подписки
+btn_papka.clicked.connect(ShowImages)
 
 # Запуск
 win.show()
