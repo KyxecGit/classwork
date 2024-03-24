@@ -1,3 +1,4 @@
+файл game.py
 from direct.showbase.ShowBase import ShowBase
 
 # класс 
@@ -16,3 +17,18 @@ class Game(ShowBase):
       
 game = Game()
 game.run()
+
+
+файл mapmanager.py
+class Mapmanager():
+    def __init__(self):
+        self.land = render.attachNewNode("Land")
+        self.addBlock((0,10, 0))
+
+
+    def addBlock(self, position):
+        self.block = loader.loadModel('block')
+        self.block.setTexture(loader.loadTexture('block.png')) 
+        self.block.setPos(position)
+        self.block.setColor((0.2, 0.2, 0.35, 1))
+        self.block.reparentTo(self.land)
