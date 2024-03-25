@@ -1,3 +1,4 @@
+from random import shuffle
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
         QApplication, QWidget, 
@@ -6,6 +7,9 @@ from PyQt5.QtWidgets import (
         QPushButton, QLabel)
 
 app = QApplication([])
+window = QWidget()
+window.setWindowTitle('Memo Card')
+window.resize(400, 300)
 
 class Question():
     def __init__(self, question, right, wrong1, wrong2, wrong3):
@@ -93,13 +97,19 @@ layout_card.addStretch(1)
 layout_card.addLayout(layout_line3, stretch=1)
 layout_card.addStretch(1)
 layout_card.setSpacing(5) # пробелы между содержимым
-
-
-window = QWidget()
 window.setLayout(layout_card)
-window.setWindowTitle('Memo Card')
 
+#Функционал
 
-window.resize(400, 300)
+def ask(question: Question):
+    buttons = shuffle[rbtn_1,rbtn_2,rbtn_3,rbtn_4]
+    shuffle(buttons)
+    lb_Question.setText(question.question)
+    buttons[0].setText(question.right)
+    buttons[1].setText(question.wrong1)
+    buttons[2].setText(question.wrong2)
+    buttons[3].setText(question.wrong3)
+
+ask(questions[0])
 window.show()
 app.exec()
