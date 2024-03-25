@@ -102,7 +102,7 @@ window.setLayout(layout_card)
 #Функционал
 
 def ask(question: Question):
-    buttons = shuffle[rbtn_1,rbtn_2,rbtn_3,rbtn_4]
+    buttons = [rbtn_1,rbtn_2,rbtn_3,rbtn_4]
     shuffle(buttons)
     lb_Question.setText(question.question)
     buttons[0].setText(question.right)
