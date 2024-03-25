@@ -63,12 +63,11 @@ RadioGroupBox.setLayout(layout_ans1) # готова "панель" с вариа
 
 AnsGroupBox = QGroupBox("Результат теста")
 lb_Result = QLabel('прав ты или нет?') # здесь размещается надпись "правильно" или "неправильно"
-lb_Correct = QLabel('ответ будет тут!') # здесь будет написан текст правильного ответа
+
 
 
 layout_res = QVBoxLayout()
 layout_res.addWidget(lb_Result, alignment=(Qt.AlignLeft | Qt.AlignTop))
-layout_res.addWidget(lb_Correct, alignment=Qt.AlignHCenter, stretch=2)
 AnsGroupBox.setLayout(layout_res)
 
 
@@ -100,9 +99,9 @@ layout_card.setSpacing(5) # пробелы между содержимым
 window.setLayout(layout_card)
 
 #Функционал
+buttons = [rbtn_1,rbtn_2,rbtn_3,rbtn_4]
 
 def ask(question: Question):
-    buttons = [rbtn_1,rbtn_2,rbtn_3,rbtn_4]
     shuffle(buttons)
     lb_Question.setText(question.question)
     buttons[0].setText(question.right)
@@ -110,6 +109,17 @@ def ask(question: Question):
     buttons[2].setText(question.wrong2)
     buttons[3].setText(question.wrong3)
 
+def check_answer():
+    RadioGroupBox.hide()
+    AnsGroupBox.show()
+    btn_OK.setText('Следующий вопрос')
+    if buttons[0].isChecked():
+        lb_Result.setText('Правильно!')
+    else:
+        lb_Result.setText('Неверно!')
+
+
+btn_OK.clicked.connect(check_answer)
 ask(questions[0])
 window.show()
 app.exec()
