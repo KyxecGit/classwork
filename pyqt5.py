@@ -7,6 +7,19 @@ from PyQt5.QtWidgets import (
 
 app = QApplication([])
 
+class Question():
+    def __init__(self, question, right, wrong1, wrong2, wrong3):
+        self.question = question
+        self.right = right
+        self.wrong1 = wrong1
+        self.wrong2 = wrong2
+        self.wrong3 = wrong3
+
+questions = []
+questions.append(Question('2 + 2','4','2','1','5'))
+questions.append(Question('Почему?','Потому','Низнаю','Когда','Зачем'))
+questions.append(Question('Уважаешь?','Да','Нет','(',')'))
+
 
 btn_OK = QPushButton('Ответить') # кнопка ответа
 lb_Question = QLabel('Самый сложный вопрос в мире!') # текст вопроса
