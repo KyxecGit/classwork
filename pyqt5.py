@@ -110,16 +110,36 @@ def ask(question: Question):
     buttons[3].setText(question.wrong3)
 
 def check_answer():
+
     RadioGroupBox.hide()
     AnsGroupBox.show()
     btn_OK.setText('Следующий вопрос')
+
     if buttons[0].isChecked():
         lb_Result.setText('Правильно!')
     else:
         lb_Result.setText('Неверно!')
 
+def next_question():
 
-btn_OK.clicked.connect(check_answer)
-ask(questions[0])
+    RadioGroupBox.show()
+    AnsGroupBox.hide()
+    btn_OK.setText('Ответить')
+
+    window.current_question += 1
+    if window.current_question >= len(questions):
+        window.current_question = 0
+    ask(questions[window.current_question])
+    
+def perehod():
+    if btn_OK.text() == 'Ответить':
+        check_answer()
+    else:
+        next_question()
+
+btn_OK.clicked.connect(perehod)
+
+window.current_question = -1
+next_question()
 window.show()
 app.exec()
