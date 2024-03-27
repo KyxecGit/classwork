@@ -59,6 +59,26 @@ def show_images():
             if file.endswith(extension):
                 list_images.addItem(file)
 
+class ImageProcessor():
+    def __init__(self):
+        self.image = None
+        self.filename = None
+        self.dir = None
+        self.save_dir = 'Mod/'
+
+    def loadImage(self, filename):
+        self.filename = filename
+        fullname = os.path.join(workdir,filename)
+        self.image = Image.open(fullname)
+
+    def showImage(self,path):
+        label_image.hide()
+        image = QPixmap(path)
+        w, h = label_image.width(), label_image.height()
+        image = image.scaled(w,h, Qt.KeepAspectRatio)
+        label_image.setPixmap(image)
+        label_image.show()
+
 #Подписки на события
 #workimage = ImageProcessor() #текущая рабочая картинка для работы
 #list_images.currentRowChanged.connect(showChosenImage)
