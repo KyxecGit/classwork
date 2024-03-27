@@ -19,3 +19,26 @@ with open('citata.txt', 'r', encoding='UTF-8') as file:
 Сталин И 5
 Байден Д 2
 Зеленский В 3
+
+
+from time import time
+
+amount_pupil = 0
+average_mark = 0
+otlicniki = []
+
+start = time() 
+
+with open('pupils.txt', 'r', encoding='UTF-8') as file:
+    for pupil in file:
+        pupil = pupil.split()
+        average_mark += int(pupil[2])
+        amount_pupil += 1
+        if pupil[2] == '5':
+            otlicniki.append(pupil[0])
+
+end = time() 
+
+print('Средний балл:', average_mark/amount_pupil)
+print('Количество отличников:', len(otlicniki))
+print('Анализ выполнялся:', end - start, 'с')
