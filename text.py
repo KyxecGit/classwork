@@ -10,3 +10,12 @@ while otvet != 'нет':
 with open('citata.txt', 'r', encoding='UTF-8') as file:
     data = file.read()
     print(data)
+
+
+Ванечкин В 2
+Петров С 3
+Водопьянов М 4
+Гитлер А 5
+Сталин И 5
+Байден Д 2
+Зеленский В 3
