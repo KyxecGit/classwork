@@ -87,6 +87,31 @@ class ImageProcessor():
         fullname = os.path.join(path,self.filename) 
         self.image.save(fullname)
 
+    def do_left(self):
+        self.image = self.image.transpose(Image.ROTATE_90)
+        self.saveImage()
+        path = os.path.join(workdir, self.save_dir, self.filename)
+        self.showImage(path)
+    
+    def do_right(self):
+        self.image = self.image.transpose(Image.ROTATE_270)
+        self.saveImage()
+        path = os.path.join(workdir, self.save_dir, self.filename)
+        self.showImage(path)
+    
+    def do_flip(self):
+        self.image = self.image.transpose(Image.FLIP_LEFT_RIGHT)
+        self.saveImage()
+        path = os.path.join(workdir, self.save_dir, self.filename)
+        self.showImage(path)
+    
+    def do_sharpen(self):
+        self.image = self.image.filter(SHARPEN)
+        self.saveImage()
+        path = os.path.join(workdir, self.save_dir, self.filename)
+        print(path)
+        self.showImage(path)
+
     def do_bw(self):
         self.image = self.image.convert('L')
         self.saveImage()
@@ -100,14 +125,15 @@ def showChosenImage():
         workimage.showImage(os.path.join(workdir, workimage.filename))
 
 #Подписки на события
-workimage = ImageProcessor() #текущая рабочая картинка для работы
+workimage = ImageProcessor() 
 list_images.currentRowChanged.connect(showChosenImage)
+
 btn_folder.clicked.connect(show_images)
 btn_gray.clicked.connect(workimage.do_bw)
-#btn_left.clicked.connect(workimage.do_left)
-#btn_right.clicked.connect(workimage.do_right)
-#btn_hd.clicked.connect(workimage.do_sharpen)
-#btn_mirror.clicked.connect(workimage.do_flip)
+btn_left.clicked.connect(workimage.do_left)
+btn_right.clicked.connect(workimage.do_right)
+btn_hd.clicked.connect(workimage.do_sharpen)
+btn_mirror.clicked.connect(workimage.do_flip)
 
 win.show()
 app.exec()
