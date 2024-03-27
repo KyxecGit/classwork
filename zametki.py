@@ -59,6 +59,7 @@ def show_images():
             if file.endswith(extension):
                 list_images.addItem(file)
 
+
 class ImageProcessor():
     def __init__(self):
         self.image = None
@@ -68,7 +69,7 @@ class ImageProcessor():
 
     def loadImage(self, filename):
         self.filename = filename
-        fullname = os.path.join(workdir,filename)
+        fullname = os.path.join(workdir,filename) 
         self.image = Image.open(fullname)
 
     def showImage(self,path):
@@ -79,9 +80,15 @@ class ImageProcessor():
         label_image.setPixmap(image)
         label_image.show()
 
+def showChosenImage():
+    if list_images.currentRow() >= 0:
+        filename = list_images.currentItem().text()
+        workimage.loadImage(filename)
+        workimage.showImage(os.path.join(workdir, workimage.filename))
+
 #Подписки на события
-#workimage = ImageProcessor() #текущая рабочая картинка для работы
-#list_images.currentRowChanged.connect(showChosenImage)
+workimage = ImageProcessor() #текущая рабочая картинка для работы
+list_images.currentRowChanged.connect(showChosenImage)
 btn_folder.clicked.connect(show_images)
 #btn_gray.clicked.connect(workimage.do_bw)
 #btn_left.clicked.connect(workimage.do_left)
