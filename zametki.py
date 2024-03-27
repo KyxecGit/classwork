@@ -1,8 +1,12 @@
 import os
+from PIL import Image
+from PIL.ImageFilter import SHARPEN
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap 
 from PyQt5.QtWidgets import (
-QApplication, QWidget, QPushButton,
-QLabel, QListWidget, QHBoxLayout,
-QVBoxLayout, QFileDialog)
+    QApplication, QWidget, QFileDialog,
+    QLabel, QPushButton, QListWidget,
+    QHBoxLayout, QVBoxLayout)
 
 app = QApplication([])
 win = QWidget()
@@ -43,7 +47,10 @@ main_layout.addLayout(v2)
 win.setLayout(main_layout)
 
 #Функционал
+workdir = ''
+
 def show_images():
+    global workdir
     workdir = QFileDialog().getExistingDirectory()
     filenames = os.listdir(workdir)
     list_images.clear()
@@ -53,7 +60,14 @@ def show_images():
                 list_images.addItem(file)
 
 #Подписки на события
+#workimage = ImageProcessor() #текущая рабочая картинка для работы
+#list_images.currentRowChanged.connect(showChosenImage)
 btn_folder.clicked.connect(show_images)
+#btn_gray.clicked.connect(workimage.do_bw)
+#btn_left.clicked.connect(workimage.do_left)
+#btn_right.clicked.connect(workimage.do_right)
+#btn_hd.clicked.connect(workimage.do_sharpen)
+#btn_mirror.clicked.connect(workimage.do_flip)
 
 win.show()
 app.exec()
