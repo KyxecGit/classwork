@@ -80,6 +80,19 @@ class ImageProcessor():
         label_image.setPixmap(image)
         label_image.show()
 
+    def saveImage(self):
+        path = os.path.join(workdir, self.save_dir)
+        if not(os.path.exists(path) or os.path.isdir(path)):
+            os.mkdir(path)
+        fullname = os.path.join(path,self.filename) 
+        self.image.save(fullname)
+
+    def do_bw(self):
+        self.image = self.image.convert('L')
+        self.saveImage()
+        path = os.path.join(workdir, self.save_dir, self.filename)
+        self.showImage(path)
+
 def showChosenImage():
     if list_images.currentRow() >= 0:
         filename = list_images.currentItem().text()
@@ -90,7 +103,7 @@ def showChosenImage():
 workimage = ImageProcessor() #текущая рабочая картинка для работы
 list_images.currentRowChanged.connect(showChosenImage)
 btn_folder.clicked.connect(show_images)
-#btn_gray.clicked.connect(workimage.do_bw)
+btn_gray.clicked.connect(workimage.do_bw)
 #btn_left.clicked.connect(workimage.do_left)
 #btn_right.clicked.connect(workimage.do_right)
 #btn_hd.clicked.connect(workimage.do_sharpen)
